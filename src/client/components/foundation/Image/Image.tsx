@@ -8,6 +8,8 @@ type Props = Omit<ComponentProps<'img'>, 'className'> & {
 };
 
 export const Image: FC<Props> = ({ fill, ...rest }) => {
+  // console.log(rest);
+  if(rest.src?.endsWith('.jpg')) { rest.src = rest.src.substring(0,rest.src.length-4)+".webp" };
   return (
     <img
       className={classNames(styles.container(), {

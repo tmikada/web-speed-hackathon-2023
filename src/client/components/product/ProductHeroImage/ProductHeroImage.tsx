@@ -41,20 +41,24 @@ type Props = {
 };
 
 export const ProductHeroImage: FC<Props> = memo(({ product, title }) => {
-  const thumbnailFile = product.media.find((productMedia) => productMedia.isThumbnail)?.file;
+  let thumbnailFile = product.media.find((productMedia) => productMedia.isThumbnail)?.file;
 
-  const [imageDataUrl, setImageDataUrl] = useState<string>();
+  let [imageDataUrl, setImageDataUrl] = useState<string>();
 
   useEffect(() => {
     if (thumbnailFile == null) {
       return;
     }
+    if(thumbnailFile.filename.endsWith('.jpg')) {
+       thumbnailFile.filename = thumbnailFile.filename.substring(0,thumbnailFile.filename.length-4)+".webp" 
+      };
     loadImageAsDataURL(thumbnailFile.filename).then((dataUrl) => setImageDataUrl(dataUrl));
   }, [thumbnailFile]);
 
   if (imageDataUrl === undefined) {
     return null;
   }
+  if(imageDataUrl.endsWith('.jpg')) { imageDataUrl = imageDataUrl.substring(0,imageDataUrl.length-4)+".webp" };
 
   return (
     <GetDeviceType>
