@@ -1,8 +1,8 @@
 import { useFormik } from 'formik';
-import _ from 'lodash';
+// import _ from 'lodash';
 import type { ChangeEventHandler, FC } from 'react';
-import zipcodeJa from 'zipcode-ja';
-
+// import zipcodeJa from 'zipcode-ja';
+import { useState, useEffect } from 'react';
 import { PrimaryButton } from '../../foundation/PrimaryButton';
 import { TextInput } from '../../foundation/TextInput';
 
@@ -30,11 +30,20 @@ export const OrderForm: FC<Props> = ({ onSubmit }) => {
     onSubmit,
   });
 
+  const [zipcodeJa, setZipcodeJa] = useState<Record<string, any>>({});
+
+  useEffect(() => {
+    import('zipcode-ja').then((module) => {
+      setZipcodeJa(module.default);
+    });
+  }, []);
+
   const handleZipcodeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     formik.handleChange(event);
 
     const zipCode = event.target.value;
-    const address = [...(_.cloneDeep(zipcodeJa)[zipCode]?.address ?? [])];
+    // const address = [...(_.cloneDeep(zipcodeJa)[zipCode]?.address ?? [])];
+    const address = [...(zipcodeJa[zipCode]?.address ?? [])];
     const prefecture = address.shift();
     const city = address.join(' ');
 

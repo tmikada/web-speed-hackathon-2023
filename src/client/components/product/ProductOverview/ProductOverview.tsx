@@ -1,5 +1,5 @@
 import * as currencyFormatter from 'currency-formatter';
-import _ from 'lodash';
+// import _ from 'lodash';
 import type { FC } from 'react';
 import { memo } from 'react';
 
@@ -14,6 +14,7 @@ type Props = {
 };
 
 export const ProductOverview: FC<Props> = memo(({ activeOffer, product }) => {
+// export const ProductOverview: FC<Props> = memo(({ activeOffer, product }) => {
   if (product === undefined) {
     return null;
   }
@@ -59,6 +60,6 @@ export const ProductOverview: FC<Props> = memo(({ activeOffer, product }) => {
       </div>
     </div>
   );
-}, _.isEqual);
+});
 
 ProductOverview.displayName = 'ProductOverview';
