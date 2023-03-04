@@ -142,9 +142,12 @@ async function seedMediaFiles(): Promise<MediaFile[]> {
     const media = new MediaFile();
     media.filename = filename;
     mediaList.push(media);
+    console.log(filename);
   }
-
+  console.log(mediaList.length);
+  
   await insert(mediaList);
+  console.log(mediaList.length);
 
   return mediaList;
 }
@@ -192,19 +195,25 @@ async function seedProducts({ mediaList }: { mediaList: MediaFile[] }): Promise<
   for (const familyName of familyNames) {
     for (const farmName of farmNames) {
       for (const vegetableFruitName of vegetableFruitNames) {
+        // for(const temp of mediaList) {
+        //   console.log(temp.filename,'\\products\\'+vegetableFruitName.name+'\\');
+        // }
         const vegetableFruitImages = mediaList.filter((m) =>
-          m.filename.includes(`/products/${vegetableFruitName.name}/`),
+          m.filename.includes('\\products\\'+vegetableFruitName.name+'\\'),
         );
         const videos = mediaList.filter((m) => m.filename.includes('/videos/'));
 
         const productMediaList: ProductMedia[] = [];
+        console.log(vegetableFruitImages.length);
 
         for (let i = 0; i < vegetableFruitImages.length; i++) {
           const productMedia = new ProductMedia();
           productMedia.file = vegetableFruitImages[i];
+          console.log(productMedia.file);
           productMedia.isThumbnail = false;
           productMediaList.push(productMedia);
         }
+        console.log(productMediaList.length);
         productMediaList[index % productMediaList.length].isThumbnail = true;
         videos.slice(0, index % (videos.length + 1)).forEach((video) => {
           const productMedia = new ProductMedia();
@@ -357,6 +366,7 @@ async function seed(): Promise<void> {
   const users = await seedUsers({ mediaList });
 
   console.log('Seeding products...');
+  console.log(mediaList.length);
   const products = await seedProducts({ mediaList });
 
   console.log('Seeding feature sections...');
