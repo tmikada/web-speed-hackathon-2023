@@ -25,11 +25,12 @@ export const ProductDetail: FC = () => {
 
   const { product } = useProduct(Number(productId));
   const { reviews } = useReviews(product?.id);
-  const { isAuthUser } = useAuthUser();
+  const { authUser,isAuthUser } = useAuthUser();
+  // console.log(isAuthUser,authUser);
   const { sendReview } = useSendReview();
   const { updateCartItem } = useUpdateCartItem();
   const handleOpenModal = useOpenModal();
-  const { amountInCart } = useAmountInCart(Number(productId));
+  const { amountInCart } = useAmountInCart(Number(productId), Boolean(isAuthUser), authUser);// このなかでuseAuthUser呼び出している
   const { activeOffer } = useActiveOffer(product);
 
   const handleSubmitReview = ({ comment }: { comment: string }) => {

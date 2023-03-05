@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { Layout } from '../../components/application/Layout';
 import { WidthRestriction } from '../../components/foundation/WidthRestriction';
@@ -21,16 +22,30 @@ export const Order: FC = () => {
   const { submitOrder } = useSubmitOrder();
   const { order } = useOrder();
 
-  if (authUserLoading) {
-    return null;
-  }
+  // if (authUserLoading) {
+  //   return null;
+  // }
+  
+  // useEffect(() => {
+  //   // サーバー負荷が懸念されそうなので、リクエストを少し待つ
+  //   // サーバー負荷がなくなれば、すぐ読み込んでもよい
+  //   const timer = setTimeout(() => {
+  //     useSubmitOrder();
+  //     useOrder();
+  //   }, 200);
+    
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [submitOrder, order]);
+  
   if (!isAuthUser) {
     navigate('/');
     return null;
   }
 
   const renderContents = () => {
-    if (!authUser || order == undefined || order.items.length === 0) {
+    if (authUser == undefined || authUser == null || order == undefined || order.items.length === 0) {
       return (
         <div className={styles.emptyContainer()}>
           <p className={styles.emptyDescription()}>商品がカートに入っていません</p>

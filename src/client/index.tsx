@@ -9,7 +9,7 @@ import { injectGlobalStyle } from './global.styles';
 injectGlobalStyle();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
+  // <StrictMode>
     <App />
-  </StrictMode>,
+  // </StrictMode>,
 );

@@ -4,7 +4,9 @@ import type { GetRecommendationsQueryResponse } from '../graphql/queries';
 import { GetRecommendationsQuery } from '../graphql/queries';
 
 export const useRecommendation = () => {
-  const recommendationsResult = useSuspenseQuery<GetRecommendationsQueryResponse>(GetRecommendationsQuery);
+  const recommendationsResult = useSuspenseQuery<GetRecommendationsQueryResponse>(GetRecommendationsQuery, {
+    // fetchPolicy: 'cache-first',
+  });
 
   const hour = window.Temporal.Now.plainTimeISO().hour;
   const recommendations = recommendationsResult?.data?.recommendations;

@@ -9,6 +9,8 @@ import route from 'koa-route';
 import send from 'koa-send';
 import session from 'koa-session';
 import serve from 'koa-static';
+const compress = require('koa-compress');
+const cors = require('@koa/cors');
 
 import type { Context } from './context';
 import { dataSource } from './data_source';
@@ -29,9 +31,14 @@ async function init(): Promise<void> {
   app.use(logger());
   app.use(bodyParser());
   app.use(session({}, app));
+  app.use(compress({
+    br: false,
+  }));
+  app.use(cors());
 
   app.use(async (ctx, next) => {
-    ctx.set('Cache-Control', 'no-store');
+    // ctx.set('Cache-Control', 'no-store');
+    ctx.set('Cache-Control', 'public, max-age=31536000');
     await next();
   });
 
@@ -43,6 +50,7 @@ async function init(): Promise<void> {
       '/graphql',
       koaMiddleware(apolloServer, {
         context: async ({ ctx }) => {
+          // console.log(ctx.request.body);
           return { session: ctx.session } as Context;
         },
       }),

@@ -19,9 +19,10 @@ export const NotFound: FC = () => {
     load();
   }, []);
 
-  if (!isReady) {
-    return null;
-  }
+  // if (!isReady) {
+  //   return  <div>Loading...</div>;
+  //   // return  null;
+  // }
 
   return (
     <>

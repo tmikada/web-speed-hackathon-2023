@@ -199,7 +199,8 @@ async function seedProducts({ mediaList }: { mediaList: MediaFile[] }): Promise<
         //   console.log(temp.filename,'\\products\\'+vegetableFruitName.name+'\\');
         // }
         const vegetableFruitImages = mediaList.filter((m) =>
-          m.filename.includes('\\products\\'+vegetableFruitName.name+'\\'),
+          // m.filename.includes('\\products\\'+vegetableFruitName.name+'\\'),
+          m.filename.includes(`/products/${vegetableFruitName.name}/`),
         );
         const videos = mediaList.filter((m) => m.filename.includes('/videos/'));
 
@@ -368,6 +369,7 @@ async function seed(): Promise<void> {
   console.log('Seeding products...');
   console.log(mediaList.length);
   const products = await seedProducts({ mediaList });
+  console.log(products.length);
 
   console.log('Seeding feature sections...');
   await seedFeatureSections({ products });

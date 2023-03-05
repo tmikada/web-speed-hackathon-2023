@@ -21,16 +21,28 @@ export const WidthRestriction: FC<Props> = ({ children }) => {
       setClientWidth(Math.min(width, 1024));
     });
 
-    let timer = (function tick() {
-      return setImmediate(() => {
-        updateClientWidth();
-        timer = tick();
-      });
-    })();
+    let animationFrameId: number;
 
-    return () => {
-      clearImmediate(timer);
+    const updateWidth = () => {
+      updateClientWidth();
+      animationFrameId = requestAnimationFrame(updateWidth);
     };
+  
+    animationFrameId = requestAnimationFrame(updateWidth);
+  
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+    // let timer = (function tick() {
+    //   return setImmediate(() => {
+    //     updateClientWidth();
+    //     timer = tick();
+    //   });
+    // })();
+
+    // return () => {
+    //   clearImmediate(timer);
+    // };
   }, []);
 
   return (

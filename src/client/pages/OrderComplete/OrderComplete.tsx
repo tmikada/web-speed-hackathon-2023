@@ -22,19 +22,28 @@ export const OrderComplete: FC = () => {
   const { authUserLoading, isAuthUser } = useAuthUser();
   const { recommendation } = useRecommendation();
 
+  // useEffect(() => {
+  //   loadFonts().then(() => {
+  //     setIsReadyFont(true);
+  //   });
+  // }, []);
   useEffect(() => {
-    loadFonts().then(() => {
+    const load = async () => {
+      await loadFonts();
       setIsReadyFont(true);
-    });
+    };
+
+    load();
   }, []);
 
-  if (!recommendation || !isReadyFont || authUserLoading) {
-    return null;
-  }
-  if (!isAuthUser) {
-    navigate('/');
-    return null;
-  }
+  // if (!recommendation || !isReadyFont || authUserLoading) {
+    if (!isAuthUser) {
+      navigate('/');
+      return null;
+    }
+    // if (!recommendation) {
+    //   return null;
+    // }
 
   return (
     <>
@@ -62,10 +71,12 @@ export const OrderComplete: FC = () => {
                   </AspectRatio>
                 </div>
 
+               {recommendation && (
                 <div className={styles.recommended()}>
                   <h2 className={styles.recommendedHeading()}>こちらの商品もオススメです</h2>
                   <ProductHeroImage product={recommendation.product} title={recommendation.product.name} />
                 </div>
+                )}
 
                 <div className={styles.backToTopButtonWrapper()}>
                   <PrimaryAnchor href="/" size="lg">

@@ -29,7 +29,12 @@ const syncXhr: HttpOptions['fetch'] = (uri, options) => {
   });
 };
 
-const link = new HttpLink({ fetch: syncXhr });
+const link = new HttpLink({ 
+  fetch: syncXhr,
+  headers: {
+    'Content-Encoding': 'gzip',
+  }
+ });
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),

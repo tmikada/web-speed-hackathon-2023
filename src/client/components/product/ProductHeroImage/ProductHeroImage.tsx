@@ -1,5 +1,7 @@
-import CanvasKitInit from 'canvaskit-wasm';
-import CanvasKitWasmUrl from 'canvaskit-wasm/bin/canvaskit.wasm?url';
+// import CanvasKitInit from 'canvaskit-wasm';
+// import CanvasKitInit from 'canvaskit-wasm/bin/canvaskit.js';
+// import CanvasKitWasmUrl from 'canvaskit-wasm/bin/canvaskit.wasm?url';
+// import CanvasKitWasmUrl from 'canvaskit-wasm/bin/canvaskit.js';
 import classNames from 'classnames';
 // import _ from 'lodash';
 import { memo, useEffect, useState } from 'react';
@@ -14,25 +16,45 @@ import { WidthRestriction } from '../../foundation/WidthRestriction';
 import * as styles from './ProductHeroImage.styles';
 
 async function loadImageAsDataURL(url: string): Promise<string> {
-  const CanvasKit = await CanvasKitInit({
-    // WASM ファイルの URL を渡す
-    locateFile: () => CanvasKitWasmUrl,
-  });
+  // const CanvasKit = await CanvasKitInit({
+  //   // WASM ファイルの URL を渡す
+  //   locateFile: () => CanvasKitWasmUrl,
+  // });
 
-  // 画像を読み込む
-  const data = await fetch(url).then((res) => res.arrayBuffer());
-  const image = CanvasKit.MakeImageFromEncoded(data);
-  if (image == null) {
-    // 読み込みに失敗したとき、透明な 1x1 GIF の Data URL を返却する
-    return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-  }
+  // // 画像を読み込む
+  // const data = await fetch(url).then((res) => res.arrayBuffer());
+  // const image = CanvasKit.MakeImageFromEncoded(data);
+  
+  // if (image == null) {
+  //   // 読み込みに失敗したとき、透明な 1x1 GIF の Data URL を返却する
+  //   return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+  // }
 
-  // 画像を Canvas に描画して Data URL を生成する
-  const canvas = CanvasKit.MakeCanvas(image.width(), image.height());
-  const ctx = canvas.getContext('2d');
-  // @ts-expect-error ...
-  ctx?.drawImage(image, 0, 0);
-  return canvas.toDataURL();
+  // // 画像を Canvas に描画して Data URL を生成する
+  // // const canvas = CanvasKit.MakeCanvas(image.width(), image.height());
+
+  // const ctx = canvas.getContext('2d');
+  // // @ts-expect-error ...
+  // ctx?.drawImage(image, 0, 0);
+  // return canvas.toDataURL();
+
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.getContext('2d')?.drawImage(img, 0, 0);
+      const dataUrl = canvas.toDataURL();
+      resolve(dataUrl);
+    };
+    img.onerror = (e) => {
+      console.error(e);
+      reject(e);
+    };
+    img.src = url;
+  });  
 }
 
 type Props = {

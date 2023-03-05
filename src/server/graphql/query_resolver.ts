@@ -20,6 +20,7 @@ export const queryResolver: QueryResolver = {
     return dataSource.manager.find(FeatureSection);
   },
   me: async (_parent, _args, { session }) => {
+    console.log(_parent,_args,session['userId']);
     if (session['userId'] == null) {
       return null;
     }
@@ -28,6 +29,7 @@ export const queryResolver: QueryResolver = {
     });
   },
   product: (_parent, args) => {
+    console.log("product:",args.id);
     return dataSource.manager.findOneOrFail(Product, {
       where: { id: args.id },
     });
@@ -36,6 +38,7 @@ export const queryResolver: QueryResolver = {
     return dataSource.manager.find(Recommendation);
   },
   user: (_parent, args) => {
+    // console.log("user",args.id);
     return dataSource.manager.findOneOrFail(User, {
       where: { id: args.id },
     });

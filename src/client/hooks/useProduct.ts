@@ -11,6 +11,7 @@ export const useProduct = (productId: number) => {
     variables: {
       productId,
     },
+    // fetchPolicy: 'cache-first',
   });
 
   const product = productResult.data?.product;

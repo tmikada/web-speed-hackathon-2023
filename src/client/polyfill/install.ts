@@ -1,5 +1,5 @@
-import 'core-js';
-import 'date-time-format-timezone';
+// import 'core-js';
+// import 'date-time-format-timezone';
 import 'setimmediate';
 import './temporal';
 

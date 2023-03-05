@@ -17,15 +17,27 @@ export const useSlider = ({ items }: { items: unknown[] }) => {
       });
     });
 
-    let timer = (function tick() {
-      return setImmediate(() => {
-        updateVisibleItemCount();
-        timer = tick();
-      });
-    })();
+  //   let timer = (function tick() {
+  //     return setImmediate(() => {
+  //       updateVisibleItemCount();
+  //       timer = tick();
+  //     });
+  //   })();
+
+  //   return () => {
+  //     clearImmediate(timer);
+  //   };
+  // }, []);
+  const handleResize = () => {
+    requestAnimationFrame(() => {
+      updateVisibleItemCount();
+    });
+  };
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      clearImmediate(timer);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

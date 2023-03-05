@@ -30,26 +30,53 @@ export const OrderForm: FC<Props> = ({ onSubmit }) => {
     onSubmit,
   });
 
-  const [zipcodeJa, setZipcodeJa] = useState<Record<string, any>>({});
+  // const [zipcodeJa, setZipcodeJa] = useState<Record<string, any>>({});
 
-  useEffect(() => {
-    import('zipcode-ja').then((module) => {
-      setZipcodeJa(module.default);
-    });
-  }, []);
+  // useEffect(() => {
+  //   import('zipcode-ja').then((module) => {
+  //     setZipcodeJa(module.default);
+  //   });
+  // }, []);
+
+  const [loading, setLoading] = useState(false);
 
   const handleZipcodeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     formik.handleChange(event);
-
+  
     const zipCode = event.target.value;
-    // const address = [...(_.cloneDeep(zipcodeJa)[zipCode]?.address ?? [])];
-    const address = [...(zipcodeJa[zipCode]?.address ?? [])];
-    const prefecture = address.shift();
-    const city = address.join(' ');
+    if(zipCode.length != 7) return;
+    const url = `https://api.zipaddress.net/?zipcode=${zipCode}`;
 
-    formik.setFieldValue('prefecture', prefecture);
-    formik.setFieldValue('city', city);
+    setLoading(true);
+    
+    fetch(url)
+      .then(response => response.json())
+      .then((data) => {
+        setLoading(false);
+        if (data.code === 200) {
+          const prefecture = data.data.pref;
+          const city = data.data.city + data.data.town;
+          formik.setFieldValue('prefecture', prefecture);
+          formik.setFieldValue('city', city);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        setLoading(false);
+      });
   };
+  // const handleZipcodeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  //   formik.handleChange(event);
+
+  //   const zipCode = event.target.value;
+  //   // const address = [...(_.cloneDeep(zipcodeJa)[zipCode]?.address ?? [])];
+  //   const address = [...(zipcodeJa[zipCode]?.address ?? [])];
+  //   const prefecture = address.shift();
+  //   const city = address.join(' ');
+
+  //   formik.setFieldValue('prefecture', prefecture);
+  //   formik.setFieldValue('city', city);
+  // };
 
   return (
     <div className={styles.container()}>
@@ -89,8 +116,8 @@ export const OrderForm: FC<Props> = ({ onSubmit }) => {
           />
         </div>
         <div className={styles.purchaseButton()}>
-          <PrimaryButton size="lg" type="submit">
-            購入
+          <PrimaryButton size="lg" type="submit" disabled={loading}>
+            {loading ? '処理中...' : '購入'}
           </PrimaryButton>
         </div>
       </form>

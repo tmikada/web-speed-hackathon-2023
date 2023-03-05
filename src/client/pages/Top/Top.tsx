@@ -14,7 +14,7 @@ export const Top: FC = () => {
   const { features } = useFeatures();
 
   if (recommendation === undefined || features === undefined) {
-    return null;
+    return  <><Layout><div>Loading...</div></Layout></>;
   }
 
   return (

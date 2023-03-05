@@ -21,15 +21,28 @@ export const AspectRatio: FC<Props> = ({ children, ratioHeight, ratioWidth }) =>
       setClientHeight(height);
     });
 
-    let timer = (function tick() {
-      return setImmediate(() => {
-        updateClientHeight();
-        timer = tick();
-      });
-    })();
+  //   let timer = (function tick() {
+  //     return setImmediate(() => {
+  //       updateClientHeight();
+  //       timer = tick();
+  //     });
+  //   })();
+
+  //   return () => {
+  //     clearImmediate(timer);
+  //   };
+  // }, [ratioHeight, ratioWidth]);
+  let animationFrameId: number | null = null;
+  const loop = () => {
+    updateClientHeight();
+    animationFrameId = requestAnimationFrame(loop);
+  };
+  animationFrameId = requestAnimationFrame(loop);
 
     return () => {
-      clearImmediate(timer);
+      if (animationFrameId != null) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, [ratioHeight, ratioWidth]);
 

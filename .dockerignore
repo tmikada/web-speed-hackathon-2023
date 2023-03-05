@@ -1,3 +1,3 @@
-dist
-node_modules
-databases/database.sqlite
+dist/
+node_modules/
+# databases/database.sqlite

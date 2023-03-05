@@ -7,20 +7,39 @@ export function useActiveOffer(product: ProductFragmentResponse | undefined) {
   const [activeOffer, setActiveOffer] = useState<LimitedTimeOfferFragmentResponse | undefined>(undefined);
 
   useEffect(() => {
-    const timer = setInterval(() => {
       if (!product) {
         setActiveOffer(undefined);
         return;
       }
-
       const offer = getActiveOffer(product.offers);
       setActiveOffer(offer);
-    }, 0);
+  
+      const handleResize = () => {
+        const newOffer = getActiveOffer(product.offers);
+        setActiveOffer(newOffer);
+      };
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, [product]);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [product]);
+      //   const timer = setInterval(() => {
+  //     if (!product) {
+  //       setActiveOffer(undefined);
+  //       return;
+  //     }
+
+  //     const offer = getActiveOffer(product.offers);
+  //     setActiveOffer(offer);
+  //   }, 0);
+
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [product]);
 
   return { activeOffer };
 }

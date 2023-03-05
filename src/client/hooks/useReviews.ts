@@ -13,6 +13,7 @@ export const useReviews = (productId: number | undefined) => {
     variables: {
       productId,
     },
+    // fetchPolicy: 'cache-first',
   });
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export const useReviews = (productId: number | undefined) => {
     // サーバー負荷がなくなれば、すぐ読み込んでもよい
     const timer = setTimeout(() => {
       loadReviews();
-    }, 1000);
+    }, 200);
 
     return () => {
       clearTimeout(timer);
