@@ -8,12 +8,12 @@ import { loadFonts } from '../../utils/load_fonts';
 import * as styles from './NotFound.styles';
 
 export const NotFound: FC = () => {
-  const [isReady, setIsReady] = useState(false);
+  // const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const load = async () => {
       await loadFonts();
-      setIsReady(true);
+      // setIsReady(true);
     };
 
     load();
