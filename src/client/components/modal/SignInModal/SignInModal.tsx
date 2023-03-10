@@ -12,11 +12,12 @@ import { TextInput } from '../../foundation/TextInput';
 
 import * as styles from './SignInModal.styles';
 
-const NOT_INCLUDED_AT_CHAR_REGEX = /^(?:[^@]*){6,}$/;
+// const NOT_INCLUDED_AT_CHAR_REGEX = /^(?:[^@]*){6,}$/;
+const INCLUDED_AT_CHAR_REGEX = /^(\w)*[@]{1}(\w)*$/;
 const NOT_INCLUDED_SYMBOL_CHARS_REGEX = /^(?:(?:[a-zA-Z0-9]*){2,})+$/;
 
 // NOTE: 文字列に @ が含まれているか確認する
-const emailSchema = z.string().refine((v) => !NOT_INCLUDED_AT_CHAR_REGEX.test(v));
+const emailSchema = z.string().refine((v) => INCLUDED_AT_CHAR_REGEX.test(v));
 // NOTE: 文字列に英数字以外の文字が含まれているか確認する
 const passwordSchema = z.string().refine((v) => !NOT_INCLUDED_SYMBOL_CHARS_REGEX.test(v));
 
@@ -57,6 +58,7 @@ export const SignInModal: FC = () => {
       const errors: FormikErrors<SignInForm> = {};
       if (values.email != '' && !emailSchema.safeParse(values.email).success) {
         errors['email'] = 'メールアドレスの形式が間違っています';
+        // console.log(emailSchema.safeParse(values.email).success);
       }
       if (values.password != '' && !passwordSchema.safeParse(values.password).success) {
         errors['password'] = '英数字以外の文字を含めてください';
