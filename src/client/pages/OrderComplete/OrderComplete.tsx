@@ -28,12 +28,13 @@ export const OrderComplete: FC = () => {
   //   });
   // }, []);
   useEffect(() => {
-    const load = async () => {
-      await loadFonts();
-      setIsReadyFont(true);
-    };
+    loadFonts();
+    // const load = async () => {
+    //   await loadFonts();
+    //   setIsReadyFont(true);
+    // };
 
-    load();
+    // load();
   }, []);
 
   // if (!recommendation || !isReadyFont || authUserLoading) {

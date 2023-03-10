@@ -11,12 +11,13 @@ export const NotFound: FC = () => {
   // const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const load = async () => {
-      await loadFonts();
-      // setIsReady(true);
-    };
+    loadFonts(); // 読み込み終わりまで待たない
+    // const load = async () => {
+    //   await loadFonts();
+    //   // setIsReady(true);
+    // };
 
-    load();
+    // load();
   }, []);
 
   // if (!isReady) {
