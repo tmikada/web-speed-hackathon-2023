@@ -71,16 +71,16 @@ export const ProductHeroImage: FC<Props> = memo(({ product, title }) => {
     if (thumbnailFile == null) {
       return;
     }
-    if(thumbnailFile.filename.endsWith('.jpg')) {
-       thumbnailFile.filename = thumbnailFile.filename.substring(0,thumbnailFile.filename.length-4)+".webp" 
-      };
+    // if(thumbnailFile.filename.endsWith('.jpg')) {
+    //    thumbnailFile.filename = thumbnailFile.filename.substring(0,thumbnailFile.filename.length-4)+".webp" 
+    //   };
     loadImageAsDataURL(thumbnailFile.filename).then((dataUrl) => setImageDataUrl(dataUrl));
   }, [thumbnailFile]);
 
   if (imageDataUrl === undefined) {
     return null;
   }
-  if(imageDataUrl.endsWith('.jpg')) { imageDataUrl = imageDataUrl.substring(0,imageDataUrl.length-4)+".webp" };
+  // if(imageDataUrl.endsWith('.jpg')) { imageDataUrl = imageDataUrl.substring(0,imageDataUrl.length-4)+".webp" };
 
   return (
     <GetDeviceType>
