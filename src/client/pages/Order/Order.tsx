@@ -1,12 +1,20 @@
 import type { FC } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
-import { Layout } from '../../components/application/Layout';
-import { WidthRestriction } from '../../components/foundation/WidthRestriction';
-import { OrderForm } from '../../components/order/OrderForm';
-import { OrderPreview } from '../../components/order/OrderPreview';
+// import { Layout } from '../../components/application/Layout';
+const Layout = lazy(() => import('../../components/application/Layout')
+    .then(({ Layout }) => ({ default: Layout })));
+// import { WidthRestriction } from '../../components/foundation/WidthRestriction';
+const WidthRestriction = lazy(() => import('../../components/foundation/WidthRestriction')
+    .then(({ WidthRestriction }) => ({ default: WidthRestriction })));
+// import { OrderForm } from '../../components/order/OrderForm';
+const OrderForm = lazy(() => import('../../components/order/OrderForm')
+    .then(({ OrderForm }) => ({ default: OrderForm })));
+// import { OrderPreview } from '../../components/order/OrderPreview';
+const OrderPreview = lazy(() => import('../../components/order/OrderPreview')
+    .then(({ OrderPreview }) => ({ default: OrderPreview })));
 import { useAuthUser } from '../../hooks/useAuthUser';
 import { useOrder } from '../../hooks/useOrder';
 import { useSubmitOrder } from '../../hooks/useSubmitOrder';

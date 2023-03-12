@@ -1,13 +1,26 @@
 import type { FC } from 'react';
+import { lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
-import { Layout } from '../../components/application/Layout';
-import { WidthRestriction } from '../../components/foundation/WidthRestriction';
-import { ProductMediaListPreviewer } from '../../components/product/ProductMediaListPreviewer';
-import { ProductOverview } from '../../components/product/ProductOverview';
-import { ProductPurchaseSection } from '../../components/product/ProductPurchaseSeciton';
-import { ReviewSection } from '../../components/review/ReviewSection';
+// import { Layout } from '../../components/application/Layout';
+const Layout = lazy(() => import('../../components/application/Layout')
+    .then(({ Layout }) => ({ default: Layout })));
+// import { WidthRestriction } from '../../components/foundation/WidthRestriction';
+const WidthRestriction = lazy(() => import('../../components/foundation/WidthRestriction')
+    .then(({ WidthRestriction }) => ({ default: WidthRestriction })));
+// import { ProductMediaListPreviewer } from '../../components/product/ProductMediaListPreviewer';
+const ProductMediaListPreviewer = lazy(() => import('../../components/product/ProductMediaListPreviewer')
+    .then(({ ProductMediaListPreviewer }) => ({ default: ProductMediaListPreviewer })));
+// import { ProductOverview } from '../../components/product/ProductOverview';
+const ProductOverview = lazy(() => import('../../components/product/ProductOverview')
+    .then(({ ProductOverview }) => ({ default: ProductOverview })));
+// import { ProductPurchaseSection } from '../../components/product/ProductPurchaseSeciton';
+const ProductPurchaseSection = lazy(() => import('../../components/product/ProductPurchaseSeciton')
+    .then(({ ProductPurchaseSection }) => ({ default: ProductPurchaseSection })));
+// import { ReviewSection } from '../../components/review/ReviewSection';
+const ReviewSection = lazy(() => import('../../components/review/ReviewSection')
+    .then(({ ReviewSection }) => ({ default: ReviewSection })));
 import { useActiveOffer } from '../../hooks/useActiveOffer';
 import { useAmountInCart } from '../../hooks/useAmountInCart';
 import { useAuthUser } from '../../hooks/useAuthUser';

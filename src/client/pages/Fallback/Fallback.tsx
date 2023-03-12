@@ -1,7 +1,10 @@
 import type { FC } from 'react';
+import { lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { Layout } from '../../components/application/Layout';
+// import { Layout } from '../../components/application/Layout';
+const Layout = lazy(() => import('../../components/application/Layout')
+    .then(({ Layout }) => ({ default: Layout })));
 
 import * as styles from './Fallback.styles';
 

@@ -1,8 +1,10 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { Layout } from '../../components/application/Layout';
+// import { Layout } from '../../components/application/Layout';
+const Layout = lazy(() => import('../../components/application/Layout')
+    .then(({ Layout }) => ({ default: Layout })));
 import { loadFonts } from '../../utils/load_fonts';
 
 import * as styles from './NotFound.styles';
