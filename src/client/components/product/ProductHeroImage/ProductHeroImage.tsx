@@ -69,6 +69,7 @@ export const ProductHeroImage: FC<Props> = memo(({ product, title }) => {
 
   useEffect(() => {
     if (thumbnailFile == null) {
+      // ここでサムネ表示する処理をいれる？
       return;
     }
     // if(thumbnailFile.filename.endsWith('.jpg')) {
@@ -77,9 +78,9 @@ export const ProductHeroImage: FC<Props> = memo(({ product, title }) => {
     loadImageAsDataURL(thumbnailFile.filename).then((dataUrl) => setImageDataUrl(dataUrl));
   }, [thumbnailFile]);
 
-  if (imageDataUrl === undefined) {
-    return null;
-  }
+  // if (imageDataUrl === undefined) {
+  //   return null;
+  // }
   // if(imageDataUrl.endsWith('.jpg')) { imageDataUrl = imageDataUrl.substring(0,imageDataUrl.length-4)+".webp" };
 
   return (
