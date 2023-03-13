@@ -14,12 +14,12 @@ export const AspectRatio: FC<Props> = ({ children, ratioHeight, ratioWidth }) =>
   const containerRef = useRef<HTMLDivElement>(null);
   const [clientHeight, setClientHeight] = useState<number>(0);
 
-  useEffect(() => {
-    const updateClientHeight = throttle(1000, () => {
-      const width = containerRef.current?.getBoundingClientRect().width ?? 0;
-      const height = (width * ratioHeight) / ratioWidth;
-      setClientHeight(height);
-    });
+  // useEffect(() => {
+  //   const updateClientHeight = throttle(1000, () => {
+  //     const width = containerRef.current?.getBoundingClientRect().width ?? 0;
+  //     const height = (width * ratioHeight) / ratioWidth;
+  //     setClientHeight(height);
+  //   });
 
   //   let timer = (function tick() {
   //     return setImmediate(() => {
@@ -32,19 +32,19 @@ export const AspectRatio: FC<Props> = ({ children, ratioHeight, ratioWidth }) =>
   //     clearImmediate(timer);
   //   };
   // }, [ratioHeight, ratioWidth]);
-  let animationFrameId: number | null = null;
-  const loop = () => {
-    updateClientHeight();
-    animationFrameId = requestAnimationFrame(loop);
-  };
-  animationFrameId = requestAnimationFrame(loop);
+  // let animationFrameId: number | null = null;
+  // const loop = () => {
+  //   updateClientHeight();
+  //   animationFrameId = requestAnimationFrame(loop);
+  // };
+  // animationFrameId = requestAnimationFrame(loop);
 
-    return () => {
-      if (animationFrameId != null) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-  }, [ratioHeight, ratioWidth]);
+  //   return () => {
+  //     if (animationFrameId != null) {
+  //       cancelAnimationFrame(animationFrameId);
+  //     }
+  //   };
+  // }, [ratioHeight, ratioWidth]);
 
   return (
     <div ref={containerRef} className={styles.container({ clientHeight, ratioWidth, ratioHeight })}>
