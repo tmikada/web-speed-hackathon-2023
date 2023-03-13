@@ -23,9 +23,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: pnpm/action-setup@v2.2.2
+      with:
+        version: 7.28.0
     - uses: superfly/flyctl-actions/setup-flyctl@master
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
+      with:
+        cache: 'pnpm'
  #     with:
  #       node-version: ${{ matrix.node-version }}
  #       cache: 'npm'
