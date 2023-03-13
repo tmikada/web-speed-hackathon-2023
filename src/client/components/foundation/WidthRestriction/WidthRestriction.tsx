@@ -10,48 +10,51 @@ type Props = {
 
 export const WidthRestriction: FC<Props> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [clientWidth, setClientWidth] = useState<number>(0);
+  // const [clientWidth, setClientWidth] = useState<number>(0);
+  // const [clientWidth] = useState<number>(0);
 
-  const isReady = clientWidth !== 0;
+  // const isReady = clientWidth !== 0;
   
-  useEffect(() => {
+  // useEffect(() => {
     
-    // const updateClientWidth = throttle(1000, () => {
-      // const width = containerRef.current?.getBoundingClientRect().width ?? 0;
-      // // 横幅を最大 1024px にする
-      // setClientWidth(Math.min(width, 1024));
-      // });
+  //   const updateClientWidth = throttle(1000, () => {
+  //     const width = containerRef.current?.getBoundingClientRect().width ?? 0;
+  //     // 横幅を最大 1024px にする
+  //     setClientWidth(Math.min(width, 1024));
+  //     });
       
-      let animationFrameId: number;
+  //     let animationFrameId: number;
       
-      const updateWidth = () => {
-        // updateClientWidth();
-        const width = containerRef.current?.getBoundingClientRect().width ?? 0;
-        // 横幅を最大 1024px にする
-        setClientWidth(Math.min(width, 1024));
-      animationFrameId = requestAnimationFrame(updateWidth);
-    };
+  //     const updateWidth = () => {
+  //       updateClientWidth();
+  //       // const width = containerRef.current?.getBoundingClientRect().width ?? 0;
+  //       // // 横幅を最大 1024px にする
+  //       // setClientWidth(Math.min(width, 1024));
+  //     animationFrameId = requestAnimationFrame(updateWidth);
+  //     // console.log(width);
+  //   };
   
-    animationFrameId = requestAnimationFrame(updateWidth);
+  //   animationFrameId = requestAnimationFrame(updateWidth);
   
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-    // let timer = (function tick() {
-    //   return setImmediate(() => {
-    //     updateClientWidth();
-    //     timer = tick();
-    //   });
-    // })();
+  //   return () => {
+  //     cancelAnimationFrame(animationFrameId);
+  //   };
+  //   // let timer = (function tick() {
+  //   //   return setImmediate(() => {
+  //   //     updateClientWidth();
+  //   //     timer = tick();
+  //   //   });
+  //   // })();
 
-    // return () => {
-    //   clearImmediate(timer);
-    // };
-  }, []);
+  //   // return () => {
+  //   //   clearImmediate(timer);
+  //   // };
+  // }, []);
 
   return (
     <div ref={containerRef} className={styles.container()}>
-      <div className={styles.inner({ width: clientWidth })}>{isReady ? children : null}</div>
+      {/* <div className={styles.inner({ width: clientWidth })}>{isReady ? children : null}</div> */}
+      <div className={styles.inner()}>{ children }</div>
     </div>
   );
 };
