@@ -12,13 +12,14 @@ module.exports = {
     'plugin:sort/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
+    'plugin:regexp/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2022,
     sourceType: 'module',
   },
-  plugins: ['import', 'sort', '@typescript-eslint'],
+  plugins: ['import', 'sort', '@typescript-eslint', 'regexp'],
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/consistent-type-imports': ['error'],
