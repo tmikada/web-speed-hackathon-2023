@@ -40,7 +40,7 @@ export default defineConfig(async () => {
           // experimentalMinChunkSize: 40960,
         },
         plugins: [
-          terser(),
+          // terser(),
         ],
       },
       target: 'es2015',
@@ -55,7 +55,7 @@ export default defineConfig(async () => {
         title: '買えるオーガニック',
         videos,
       }),
-      viteCompression(),
+      // viteCompression(),
       // reactRefresh(),
 
       // visualizer({

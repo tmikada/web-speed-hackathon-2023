@@ -3,6 +3,7 @@ import type { Product } from '../../model/product';
 import { ProductMedia } from '../../model/product_media';
 import { Review } from '../../model/review';
 import { dataSource } from '../data_source';
+import DataLoader from 'dataloader';
 
 import type { GraphQLModelResolver } from './model_resolver';
 
